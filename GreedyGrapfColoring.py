@@ -1,0 +1,35 @@
+def greedy_coloring(adj_list):
+    n = len(adj_list)
+    colors = [-1] * n  \\ -1 означает, что цвет не назначен
+    
+    for v in range(n):
+        \\ Собираем используемые цвета соседей
+        used = set()
+        for neighbor in adj_list[v]:
+            if colors[neighbor] != -1:
+                used.add(colors[neighbor])
+        
+        \\ Находим минимальный доступный цвет
+        color = 0
+        while color in used:
+            color += 1
+        
+        \\ Назначаем найденный цвет вершине
+        colors[v] = color
+    
+    return colors
+
+\\ Пример использования:
+\\ Создаем простой граф с 4 вершинами
+adj_list = [
+    [1, 2],  \\ Соседи вершины 0
+    [0, 3],  \\ Соседи вершины 1
+    [0, 3],  \\ Соседи вершины 2
+    [1, 2]   \\ Соседи вершины 3
+]
+
+\\ Выводим результат раскраски
+print("Раскраска вершин:", greedy_coloring(adj_list))
+
+
+// Выводим результат: Раскраска вершин: [0, 1, 1, 0]
